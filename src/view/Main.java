@@ -17,20 +17,19 @@ public class Main extends JFrame {
 		JMenuBar jmb = new JMenuBar();
 		setJMenuBar(jmb);
 		
-		JMenu goods = new JMenu("å•†å“");
-		JMenuItem goodAdd = new JMenuItem("å¢åŠ å•†å“");
+		JMenu goods = new JMenu("ÉÌÆ·");
+		JMenuItem goodAdd = new JMenuItem("Ìí¼ÓÉÌÆ·");
 		goods.add(goodAdd);
-		JMenuItem goodType = new JMenuItem("å•†å“ç±»å‹");
+		JMenuItem goodType = new JMenuItem("ÉÌÆ·ÀàĞÍ");
 		goods.add(goodType);
 		jmb.add(goods);
-		JMenu customer = new JMenu("å®¢æˆ·");
+		JMenu customer = new JMenu("¿Í»§");
 		jmb.add(customer);
-		JMenu supplier = new JMenu("ä¾›åº”å•†");
+		JMenu supplier = new JMenu("¹©Ó¦ÉÌ");
 		jmb.add(supplier);
-		JMenu orders = new JMenu("è®¢å•");
+		JMenu orders = new JMenu("¶©µ¥");
 		jmb.add(orders);
 		GoodsTable gt = new GoodsTable();
-		gt.setSize(800,200);
 		add(gt);
 	}
 	public static void main(String[] args) {
@@ -47,8 +46,8 @@ public class Main extends JFrame {
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		UIManager.put("Menu.font",new Font("å¾®è½¯é›…é»‘",Font.PLAIN,15));
-		UIManager.put("MenuItem.font",new Font("å¾®è½¯é›…é»‘",Font.PLAIN,12));
+		UIManager.put("Menu.font",new Font("ËÎÌå",Font.PLAIN,15));
+		UIManager.put("MenuItem.font",new Font("ËÎÌå",Font.PLAIN,12));
 	}
 
 }

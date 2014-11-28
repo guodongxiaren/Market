@@ -9,7 +9,7 @@ public class GetConn {
 	public Connection getConnection(){
 		try {
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			String url = "jdbc:odbc:market";
+			String url = "jdbc:odbc:market;useunicode=true;characterEncoding=gb2312";
 			conn = DriverManager.getConnection(url);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -17,7 +17,7 @@ public class GetConn {
 			e.printStackTrace();
 		}
 		if (conn != null) {
-			System.out.println("数据库连接成功");
+			System.out.println("OK");
 		}
 		return conn;
 	}
