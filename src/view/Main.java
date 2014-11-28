@@ -16,9 +16,12 @@ public class Main extends JFrame {
 	public Main(){
 		JMenuBar jmb = new JMenuBar();
 		setJMenuBar(jmb);
+		
 		JMenu goods = new JMenu("商品");
-		JMenuItem goodAdd = new JMenuItem("增加");
+		JMenuItem goodAdd = new JMenuItem("增加商品");
 		goods.add(goodAdd);
+		JMenuItem goodType = new JMenuItem("商品类型");
+		goods.add(goodType);
 		jmb.add(goods);
 		JMenu customer = new JMenu("客户");
 		jmb.add(customer);
@@ -26,11 +29,14 @@ public class Main extends JFrame {
 		jmb.add(supplier);
 		JMenu orders = new JMenu("订单");
 		jmb.add(orders);
+		GoodsTable gt = new GoodsTable();
+		gt.setSize(800,200);
+		add(gt);
 	}
 	public static void main(String[] args) {
 		initUI();
 		Main m = new Main();
-		m.setSize(400,500);
+		m.setSize(800,500);
 		m.setLocationRelativeTo(null);
 		m.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		m.setVisible(true);
@@ -42,7 +48,7 @@ public class Main extends JFrame {
 			e.printStackTrace();
 		}
 		UIManager.put("Menu.font",new Font("微软雅黑",Font.PLAIN,15));
-		UIManager.put("MenuItem.font",new Font("微软雅黑",Font.PLAIN,15));
+		UIManager.put("MenuItem.font",new Font("微软雅黑",Font.PLAIN,12));
 	}
 
 }
