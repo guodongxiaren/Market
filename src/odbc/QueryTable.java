@@ -10,13 +10,12 @@ import java.util.Vector;
 public class QueryTable {
 	private Statement stat;
 	private ResultSet rs;
-	private Vector<Vector<String>> data;
+	private Vector<Vector<Object>> data;
 	private String table;
 
 	public QueryTable(String table) {
 		this.table = table;
-		GetConn gc = new GetConn();
-		Connection conn = gc.getConnection();
+		Connection conn = GetConn.getConnection();
 		try {
 			stat = conn.createStatement();
 		} catch (SQLException e) {
@@ -25,21 +24,22 @@ public class QueryTable {
 		data = new Vector<>();
 	}
 
-	public Vector<Vector<String>> getData() {
+	public Vector<Vector<Object>> getData() {
 		try {
 			rs = stat.executeQuery("select * from " + table);
 
 			while (rs.next()) {
-				Vector<String> row2 = new Vector<>();
+				Vector<Object> row = new Vector<>();
+				row.addElement(new Boolean(false));
 				for (int i = 1; i <= 9; i++) {
 					String name = rs.getString(i);
 					if (name == null) {
-						row2.addElement(null);
+						row.addElement(null);
 						continue;
 					}
-					row2.addElement(name);
+					row.addElement(name);
 				}
-				data.addElement(row2);
+				data.addElement(row);
 
 			}
 		} catch (Exception e) {
@@ -49,10 +49,11 @@ public class QueryTable {
 	}
 
 	public Vector<String> getMetaData() {
-		Vector<String> row = new Vector<String>();
+		Vector<String> row = new Vector<>();
 		ResultSetMetaData rsmd;
 		try {
 			rsmd = rs.getMetaData();
+			row.addElement(" ");
 			for (int i = 1; i <= rsmd.getColumnCount(); ++i)
 				row.addElement(rsmd.getColumnName(i));
 		} catch (SQLException e) {

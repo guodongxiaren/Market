@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.TableColumn;
+
 import odbc.QueryTable;
 
 @SuppressWarnings("serial")
@@ -24,7 +26,9 @@ public class GoodsView extends JPanel {
 		QueryTable q = new QueryTable("goods");
 		JTable table = new JTable(q.getData(), q.getMetaData());
 		// table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
+		TableColumn aColumn = table.getColumnModel().getColumn(0);
+		aColumn.setCellEditor(table.getDefaultEditor(Boolean.class));
+		aColumn.setCellRenderer(table.getDefaultRenderer(Boolean.class));
 		JScrollPane sp = new JScrollPane(table);
 		sp.setBounds(0, 0, 1000, 500);
 		JPanel phead = new JPanel(new FlowLayout(FlowLayout.LEFT));

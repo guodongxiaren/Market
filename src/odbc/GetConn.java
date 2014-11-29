@@ -5,11 +5,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class GetConn {
-	public Connection conn ;
-	public Connection getConnection(){
+
+	private static Connection conn;
+	private GetConn(){
+		
+	}
+	public static Connection getConnection() {
+		if(conn != null)
+			return conn;
 		try {
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			String url = "jdbc:odbc:market;useunicode=true;characterEncoding=gb2312";
+			String url = "jdbc:odbc:market;useunicode=true";
 			conn = DriverManager.getConnection(url);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -21,8 +27,8 @@ public class GetConn {
 		}
 		return conn;
 	}
-	public static void main(String[]args){
-		GetConn get = new GetConn();
-		get.getConnection();
+
+	public static void main(String[] args) {
+		GetConn.getConnection();
 	}
 }
