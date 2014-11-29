@@ -19,6 +19,7 @@ public class Main extends JFrame {
 		
 		JMenu goods = new JMenu("商品");
 		JMenuItem goodAdd = new JMenuItem("添加商品");
+		goodAdd.addActionListener(new AddListener());
 		goods.add(goodAdd);
 		JMenuItem goodType = new JMenuItem("商品类型");
 		goods.add(goodType);
@@ -29,7 +30,7 @@ public class Main extends JFrame {
 		jmb.add(supplier);
 		JMenu orders = new JMenu("订单");
 		jmb.add(orders);
-		GoodsTable gt = new GoodsTable();
+		GoodsView gt = new GoodsView();
 		add(gt);
 	}
 	public static void main(String[] args) {
@@ -48,6 +49,7 @@ public class Main extends JFrame {
 		}
 		UIManager.put("Menu.font",new Font("宋体",Font.PLAIN,15));
 		UIManager.put("MenuItem.font",new Font("宋体",Font.PLAIN,12));
+		
 	}
-
 }
+
