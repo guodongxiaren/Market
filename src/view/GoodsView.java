@@ -5,44 +5,68 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import odbc.QueryTable;
 
 @SuppressWarnings("serial")
 public class GoodsView extends JPanel {
-	private JButton jbadd;
-
+	private JTable table ;
+	private Vector<Vector<Object>> rowData;
 	public GoodsView() {
 		this.setLayout(new BorderLayout());
 		QueryTable q = new QueryTable("goods");
-		JTable table = new JTable(q.getData(), q.getMetaData());
+		rowData = q.getData();
+		table = new JTable(rowData, q.getMetaData());
 		// table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		TableColumn aColumn = table.getColumnModel().getColumn(0);
 		aColumn.setCellEditor(table.getDefaultEditor(Boolean.class));
 		aColumn.setCellRenderer(table.getDefaultRenderer(Boolean.class));
 		JScrollPane sp = new JScrollPane(table);
-		sp.setBounds(0, 0, 1000, 500);
+		
 		JPanel phead = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jbadd = new JButton("添加");
+		JButton jbadd = new JButton("添加");
 		jbadd.addActionListener(new AddListener());
+		JButton jbdel = new JButton("删除");
+		jbdel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				delData();
+				
+			}
+		});
+		JButton jbupdate = new JButton("更新");
 		phead.add(jbadd);
+		phead.add(jbdel);
+		phead.add(jbupdate);
 		add(phead, BorderLayout.NORTH);
 		add(sp, BorderLayout.CENTER);
 	}
-
+	public void delData(){
+		TableModel tm = table.getModel();
+		for(int i=0;i<rowData.size();i++){
+			boolean b = (boolean)tm.getValueAt(i, 0);
+			if(b==false)
+				System.out.println("Ok");
+		}
+	}
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.add(new GoodsView());
-		frame.setSize(1000, 300);
+		frame.setSize(1000, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
@@ -50,16 +74,25 @@ public class GoodsView extends JPanel {
 }
 
 class AddListener implements ActionListener {
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		GoodsItem.showItem();
+	}
+
+}
+@SuppressWarnings("serial")
+class GoodsItem extends JDialog{
 	private String colname[] = { "商品编号", "商品名称", "供应商", "商品类型", "商标", "商品型号",
 			"描述", "价格", "库存量" };
 	private JLabel label[] = new JLabel[9];
 	private JTextField field[] = new JTextField[9];
 	private JButton jbok;
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		JFrame frame = new JFrame();
+	private static GoodsItem item;
+    private GoodsItem(){
+    	setModal(true);
 		JPanel panel = new JPanel(new GridLayout(9, 2, 5, 5));
+		panel.setBorder(new EmptyBorder(10, 50, 10, 10)); 
 		for (int i = 0; i < 9; i++) {
 			label[i] = new JLabel(colname[i]);
 			field[i] = new JTextField();
@@ -67,13 +100,19 @@ class AddListener implements ActionListener {
 			panel.add(field[i]);
 		}
 
-		frame.add(panel, BorderLayout.NORTH);
+		add(panel, BorderLayout.NORTH);
 		jbok = new JButton("确定");
-		frame.add(jbok, BorderLayout.CENTER);
-		frame.setSize(300, 300);
-		frame.setLocationRelativeTo(null);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-	}
-
+		JPanel pbottom = new JPanel();
+		pbottom.add(jbok);
+		add(pbottom, BorderLayout.CENTER);
+		setSize(300, 400);
+		setLocationRelativeTo(null);
+		
+		setVisible(true);
+    }
+    public static GoodsItem showItem(){
+    	if(item == null)
+    		item = new GoodsItem();
+    	return item;
+    }
 }
