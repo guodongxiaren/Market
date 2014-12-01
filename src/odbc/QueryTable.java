@@ -10,21 +10,32 @@ import java.util.Vector;
 public class QueryTable {
 	private Statement stat;
 	private ResultSet rs;
-	private Vector<Vector<Object>> data;
 	private String table;
 
-	public QueryTable(String table) {
-		this.table = table;
+	public QueryTable() {
 		Connection conn = GetConn.getConnection();
 		try {
 			stat = conn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		data = new Vector<>();
+	}
+
+	public QueryTable(String table) {
+		this();
+		this.table = table;
+	}
+
+	public String getTable() {
+		return table;
+	}
+
+	public void setTable(String table) {
+		this.table = table;
 	}
 
 	public Vector<Vector<Object>> getData() {
+		Vector<Vector<Object>> data = new Vector<>();
 		try {
 			rs = stat.executeQuery("select * from " + table);
 
@@ -33,10 +44,6 @@ public class QueryTable {
 				row.addElement(new Boolean(false));
 				for (int i = 1; i <= 9; i++) {
 					String name = rs.getString(i);
-					if (name == null) {
-						row.addElement(null);
-						continue;
-					}
 					row.addElement(name);
 				}
 				data.addElement(row);
@@ -61,5 +68,20 @@ public class QueryTable {
 		}
 
 		return row;
+	}
+
+	public Vector<String> getColData(String colname) {
+		Vector<String> colData = new Vector<>();
+		try {
+			rs = stat.executeQuery("select * from " + table);
+			while (rs.next()) {
+				String name = rs.getString(2);
+				colData.addElement(name);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return colData;
 	}
 }

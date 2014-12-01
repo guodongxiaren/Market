@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,8 +24,9 @@ import odbc.QueryTable;
 
 @SuppressWarnings("serial")
 public class GoodsView extends JPanel {
-	private JTable table ;
+	private JTable table;
 	private Vector<Vector<Object>> rowData;
+
 	public GoodsView() {
 		this.setLayout(new BorderLayout());
 		QueryTable q = new QueryTable("goods");
@@ -35,17 +37,17 @@ public class GoodsView extends JPanel {
 		aColumn.setCellEditor(table.getDefaultEditor(Boolean.class));
 		aColumn.setCellRenderer(table.getDefaultRenderer(Boolean.class));
 		JScrollPane sp = new JScrollPane(table);
-		
+
 		JPanel phead = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JButton jbadd = new JButton("添加");
 		jbadd.addActionListener(new AddListener());
 		JButton jbdel = new JButton("删除");
 		jbdel.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				delData();
-				
+
 			}
 		});
 		JButton jbupdate = new JButton("更新");
@@ -55,14 +57,16 @@ public class GoodsView extends JPanel {
 		add(phead, BorderLayout.NORTH);
 		add(sp, BorderLayout.CENTER);
 	}
-	public void delData(){
+
+	public void delData() {
 		TableModel tm = table.getModel();
-		for(int i=0;i<rowData.size();i++){
-			boolean b = (boolean)tm.getValueAt(i, 0);
-			if(b==false)
+		for (int i = 0; i < rowData.size(); i++) {
+			boolean b = (boolean) tm.getValueAt(i, 0);
+			if (b == false)
 				System.out.println("Ok");
 		}
 	}
+
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.add(new GoodsView());
@@ -77,27 +81,44 @@ class AddListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		GoodsItem.showItem();
+		@SuppressWarnings("unused")
+		GoodsItem gi = new GoodsItem();
 	}
 
 }
+
 @SuppressWarnings("serial")
-class GoodsItem extends JDialog{
+class GoodsItem extends JDialog implements ActionListener {
 	private String colname[] = { "商品编号", "商品名称", "供应商", "商品类型", "商标", "商品型号",
 			"描述", "价格", "库存量" };
 	private JLabel label[] = new JLabel[9];
 	private JTextField field[] = new JTextField[9];
 	private JButton jbok;
-	private static GoodsItem item;
-    private GoodsItem(){
-    	setModal(true);
+	private JComboBox<String> cbSupplier, cbGoodsType;
+
+	public GoodsItem() {
+		setModal(true);
 		JPanel panel = new JPanel(new GridLayout(9, 2, 5, 5));
-		panel.setBorder(new EmptyBorder(10, 50, 10, 10)); 
+		panel.setBorder(new EmptyBorder(10, 50, 10, 10));
+		QueryTable qt = new QueryTable();
+		qt.setTable("supplier");
+		Vector<String> sup = qt.getColData("suppliername");
+		qt.setTable("goodsType");
+		Vector<String> type = qt.getColData("goodstypename");
 		for (int i = 0; i < 9; i++) {
 			label[i] = new JLabel(colname[i]);
-			field[i] = new JTextField();
 			panel.add(label[i]);
-			panel.add(field[i]);
+			if (i == 2) {
+				cbSupplier = new JComboBox<>(sup);
+				panel.add(cbSupplier);
+			} else if (i == 4) {
+				cbGoodsType = new JComboBox<>(type);
+				panel.add(cbGoodsType);
+			} else {
+				field[i] = new JTextField();
+				panel.add(field[i]);
+			}
+
 		}
 
 		add(panel, BorderLayout.NORTH);
@@ -107,12 +128,12 @@ class GoodsItem extends JDialog{
 		add(pbottom, BorderLayout.CENTER);
 		setSize(300, 400);
 		setLocationRelativeTo(null);
-		
+
 		setVisible(true);
-    }
-    public static GoodsItem showItem(){
-    	if(item == null)
-    		item = new GoodsItem();
-    	return item;
-    }
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+	}
 }
