@@ -73,11 +73,10 @@ public class QueryTable {
 	public Vector<String> getColData(String colname) {
 		Vector<String> colData = new Vector<>();
 		try {
-			rs = stat.executeQuery("select * from " + table);
+			rs = stat.executeQuery("select "+colname+" from " + table);
 			while (rs.next()) {
-				String name = rs.getString(2);
+				String name = rs.getString(1);
 				colData.addElement(name);
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

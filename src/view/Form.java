@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableColumn;
 
 import odbc.QueryTable;
 
@@ -28,15 +29,19 @@ public abstract class Form extends JPanel {
 		this.tablename = tablename;
 		setLayout(new BorderLayout());
 		update();
+		TableColumn aColumn = table.getColumnModel().getColumn(0);
+		aColumn.setCellEditor(table.getDefaultEditor(Boolean.class));
+		aColumn.setCellRenderer(table.getDefaultRenderer(Boolean.class));
+		
 		sp = new JScrollPane(table);
 		// 三个按钮
 		jbAdd = new JButton("添加");
 		jbDel = new JButton("删除");
 		jbUpd = new JButton("更新");
 
-//		jbAdd.addActionListener(createListener);
-//		jbDel.addActionListener(deleteListener);
-//		jbUpd.addActionListener(updateListener);
+		jbAdd.addActionListener(createListener);
+		jbDel.addActionListener(deleteListener);
+		jbUpd.addActionListener(updateListener);
 
 		phead.add(jbAdd);
 		phead.add(jbDel);

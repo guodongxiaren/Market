@@ -16,12 +16,15 @@ import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
+	// 主面板
 	private JPanel mainPanel;
+	// 卡片布局
 	private CardLayout cardLayout;
-	public Main(){
+
+	public Main() {
 		JMenuBar jmb = new JMenuBar();
-		setJMenuBar(jmb);	
-		//菜单
+		setJMenuBar(jmb);
+		// 菜单
 		JMenu goods = new JMenu("商品");
 		JMenuItem goodList = new JMenuItem("商品列表");
 		goods.add(goodList);
@@ -31,14 +34,14 @@ public class Main extends JFrame {
 		JMenuItem goodType = new JMenuItem("商品类型");
 		goods.add(goodType);
 		jmb.add(goods);
-		
+
 		JMenu customer = new JMenu("客户");
 		JMenuItem cusList = new JMenuItem("客户列表");
 		cusList.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			cardLayout.show(mainPanel, "customer");
+				cardLayout.show(mainPanel, "customer");
 			}
 		});
 		customer.add(cusList);
@@ -49,31 +52,31 @@ public class Main extends JFrame {
 		jmb.add(supplier);
 		JMenu orders = new JMenu("订单");
 		jmb.add(orders);
-		//主面板
+		// 主面板
 		cardLayout = new CardLayout();
-		mainPanel  = new JPanel(cardLayout);
-		mainPanel.add(new GoodsView(),"goods");
-		mainPanel.add(new CustomerForm(),"customer");
+		mainPanel = new JPanel(cardLayout);
+		mainPanel.add(new GoodsView(), "goods");
+		mainPanel.add(new CustomerForm(), "customer");
 		add(mainPanel);
 	}
-	
+
 	public static void main(String[] args) {
 		initUI();
 		Main m = new Main();
-		m.setSize(800,500);
+		m.setSize(800, 500);
 		m.setLocationRelativeTo(null);
 		m.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		m.setVisible(true);
 	}
-	private static void initUI(){
+
+	private static void initUI() {
 		try {
 			UIManager.setLookAndFeel(new NimbusLookAndFeel());
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		UIManager.put("Menu.font",new Font("宋体",Font.PLAIN,15));
-		UIManager.put("MenuItem.font",new Font("宋体",Font.PLAIN,12));
-		
+		UIManager.put("Menu.font", new Font("宋体", Font.PLAIN, 15));
+		UIManager.put("MenuItem.font", new Font("宋体", Font.PLAIN, 12));
+
 	}
 }
-

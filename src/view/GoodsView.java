@@ -96,17 +96,23 @@ class GoodsItem extends JDialog implements ActionListener {
 	private JLabel label[] = new JLabel[9];
 	private JTextField field[] = new JTextField[9];
 	private JButton jbok;
-	private JComboBox<String> cbSupplier, cbGoodsType;
-
+	JComboBox<?> cbSupplier;
+	private JComboBox<?> cbGoodsType;
+	private Vector<String> supId;
+	private Vector<String> goodsTypeId;
 	public GoodsItem() {
 		setModal(true);
 		JPanel panel = new JPanel(new GridLayout(9, 2, 5, 5));
+		//±ß¾à
 		panel.setBorder(new EmptyBorder(10, 50, 10, 10));
+		
 		QueryTable qt = new QueryTable();
 		qt.setTable("supplier");
 		Vector<String> sup = qt.getColData("suppliername");
+		supId = qt.getColData("supplierid");
 		qt.setTable("goodsType");
 		Vector<String> type = qt.getColData("goodstypename");
+		goodsTypeId = qt.getColData("goodstypeid");
 		for (int i = 0; i < 9; i++) {
 			label[i] = new JLabel(colname[i]);
 			panel.add(label[i]);
@@ -120,7 +126,6 @@ class GoodsItem extends JDialog implements ActionListener {
 				field[i] = new JTextField();
 				panel.add(field[i]);
 			}
-
 		}
 
 		add(panel, BorderLayout.NORTH);
@@ -140,9 +145,13 @@ class GoodsItem extends JDialog implements ActionListener {
 		int id = Integer.parseInt(field[0].getText());
 		double price = Double.parseDouble(field[7].getText());
 		int storage = Integer.parseInt(field[8].getText());
-		Goods goods = new Goods(id, field[1].getText(),1,
-				1, field[4].getText(), field[5].getText(),
-				field[6].getText(), price, storage);
+		int i = cbSupplier.getSelectedIndex();
+		int supplierid = Integer.parseInt(supId.elementAt(i));
+		i = cbGoodsType.getSelectedIndex();
+		int goodstypeid = Integer.parseInt(goodsTypeId.elementAt(i));
+		Goods goods = new Goods(id, field[1].getText(), supplierid, goodstypeid,
+				field[4].getText(), field[5].getText(), field[6].getText(),
+				price, storage);
 		CURD.insert(goods);
 	}
 }
