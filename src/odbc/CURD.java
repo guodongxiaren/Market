@@ -1,9 +1,10 @@
 package odbc;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Connection;
 
+import bean.Customer;
 import bean.Goods;
 
 public class CURD {
@@ -26,5 +27,25 @@ public class CURD {
 			e.printStackTrace();
 		}
 	}
-
+	public static void insert(Customer cus){
+		Connection conn = GetConn.getConnection();
+		String sql = "insert into goods values(?,?,?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement ps =  conn.prepareStatement(sql);
+			ps.setInt(1, cus.getCustomerid());
+			ps.setString(2, cus.getCustomername());
+			ps.setString(3, cus.getLoginname());
+			ps.setString(4, cus.getPassword());
+			ps.setString(5, cus.getLogindate());
+			ps.setInt(6, cus.getCreditgradeid());
+			ps.setString(7, cus.getAddress());
+			ps.setString(8, cus.getZipcode());
+			ps.setString(9, cus.getTel());
+			ps.setString(10, cus.getEmail());
+			ps.setString(11, cus.getNote());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

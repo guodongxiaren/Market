@@ -1,38 +1,62 @@
 package view;
 
+import java.awt.CardLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
-
+	private JPanel mainPanel;
+	private CardLayout cardLayout;
 	public Main(){
 		JMenuBar jmb = new JMenuBar();
-		setJMenuBar(jmb);
-		
+		setJMenuBar(jmb);	
+		//菜单
 		JMenu goods = new JMenu("商品");
+		JMenuItem goodList = new JMenuItem("商品列表");
+		goods.add(goodList);
 		JMenuItem goodAdd = new JMenuItem("添加商品");
 		goodAdd.addActionListener(new AddListener());
 		goods.add(goodAdd);
 		JMenuItem goodType = new JMenuItem("商品类型");
 		goods.add(goodType);
 		jmb.add(goods);
+		
 		JMenu customer = new JMenu("客户");
+		JMenuItem cusList = new JMenuItem("客户列表");
+		cusList.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			cardLayout.show(mainPanel, "customer");
+			}
+		});
+		customer.add(cusList);
+		JMenuItem cusAdd = new JMenuItem("添加客户");
+		customer.add(cusAdd);
 		jmb.add(customer);
 		JMenu supplier = new JMenu("供应商");
 		jmb.add(supplier);
 		JMenu orders = new JMenu("订单");
 		jmb.add(orders);
-		GoodsView gt = new GoodsView();
-		add(gt);
+		//主面板
+		cardLayout = new CardLayout();
+		mainPanel  = new JPanel(cardLayout);
+		mainPanel.add(new GoodsView(),"goods");
+		mainPanel.add(new CustomerForm(),"customer");
+		add(mainPanel);
 	}
+	
 	public static void main(String[] args) {
 		initUI();
 		Main m = new Main();
