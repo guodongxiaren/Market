@@ -20,7 +20,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
+import odbc.CURD;
 import odbc.QueryTable;
+import bean.Goods;
 
 @SuppressWarnings("serial")
 public class GoodsView extends JPanel {
@@ -111,7 +113,7 @@ class GoodsItem extends JDialog implements ActionListener {
 			if (i == 2) {
 				cbSupplier = new JComboBox<>(sup);
 				panel.add(cbSupplier);
-			} else if (i == 4) {
+			} else if (i == 3) {
 				cbGoodsType = new JComboBox<>(type);
 				panel.add(cbGoodsType);
 			} else {
@@ -123,6 +125,7 @@ class GoodsItem extends JDialog implements ActionListener {
 
 		add(panel, BorderLayout.NORTH);
 		jbok = new JButton("È·¶¨");
+		jbok.addActionListener(this);
 		JPanel pbottom = new JPanel();
 		pbottom.add(jbok);
 		add(pbottom, BorderLayout.CENTER);
@@ -134,6 +137,12 @@ class GoodsItem extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		int id = Integer.parseInt(field[0].getText());
+		double price = Double.parseDouble(field[7].getText());
+		int storage = Integer.parseInt(field[8].getText());
+		Goods goods = new Goods(id, field[1].getText(),1,
+				1, field[4].getText(), field[5].getText(),
+				field[6].getText(), price, storage);
+		CURD.insert(goods);
 	}
 }
