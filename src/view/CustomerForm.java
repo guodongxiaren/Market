@@ -14,12 +14,6 @@ public class CustomerForm extends Form {
 
 	}
 
-	@Override
-	protected void delete() {
-		// TODO Auto-generated method stub
-
-	}
-
 	public static void main(String[] args) {
 		CustomerForm c  = new CustomerForm();
 		JFrame frame = new JFrame();

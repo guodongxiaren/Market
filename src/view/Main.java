@@ -29,7 +29,7 @@ public class Main extends JFrame {
 		JMenuItem goodList = new JMenuItem("商品列表");
 		goods.add(goodList);
 		JMenuItem goodAdd = new JMenuItem("添加商品");
-		goodAdd.addActionListener(new AddListener());
+		goodAdd.addActionListener(null);
 		goods.add(goodAdd);
 		JMenuItem goodType = new JMenuItem("商品类型");
 		goods.add(goodType);
@@ -55,7 +55,7 @@ public class Main extends JFrame {
 		// 主面板
 		cardLayout = new CardLayout();
 		mainPanel = new JPanel(cardLayout);
-		mainPanel.add(new GoodsView(), "goods");
+		mainPanel.add(new GoodsForm(), "goods");
 		mainPanel.add(new CustomerForm(), "customer");
 		add(mainPanel);
 	}

@@ -8,11 +8,12 @@ import bean.Customer;
 import bean.Goods;
 
 public class CURD {
-	public static void insert(Goods goods){
-		Connection conn = GetConn.getConnection();
+	static Connection conn = GetConn.getConnection();
+
+	public static void insert(Goods goods) {
 		String sql = "insert into goods values(?,?,?,?,?,?,?,?,?)";
 		try {
-			PreparedStatement ps =  conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, goods.getGoodsid());
 			ps.setString(2, goods.getGoodsname());
 			ps.setInt(3, goods.getSupplierid());
@@ -27,11 +28,11 @@ public class CURD {
 			e.printStackTrace();
 		}
 	}
-	public static void insert(Customer cus){
-		Connection conn = GetConn.getConnection();
+
+	public static void insert(Customer cus) {
 		String sql = "insert into goods values(?,?,?,?,?,?,?,?,?)";
 		try {
-			PreparedStatement ps =  conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, cus.getCustomerid());
 			ps.setString(2, cus.getCustomername());
 			ps.setString(3, cus.getLoginname());
@@ -47,5 +48,24 @@ public class CURD {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+/**
+ * 
+ * @param id 要删除的id
+ * @param tablename 进行删除操作的表名
+ * @return
+ */
+	public static boolean delete(int id,String tablename) {
+
+		String sql = "delete from "+tablename+" where goodsid = ?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }
