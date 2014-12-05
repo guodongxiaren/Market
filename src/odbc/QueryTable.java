@@ -36,13 +36,14 @@ public class QueryTable {
 
 	public Vector<Vector<Object>> getData() {
 		Vector<Vector<Object>> data = new Vector<>();
+		ResultSetMetaData rsmd;
 		try {
 			rs = stat.executeQuery("select * from " + table);
-
+			rsmd = rs.getMetaData();
 			while (rs.next()) {
 				Vector<Object> row = new Vector<>();
 				row.addElement(new Boolean(false));
-				for (int i = 1; i <= 9; i++) {
+				for (int i = 1; i <= rsmd.getColumnCount(); i++) {
 					String name = rs.getString(i);
 					row.addElement(name);
 				}
