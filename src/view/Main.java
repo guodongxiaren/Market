@@ -19,8 +19,8 @@ public class Main extends JFrame {
 	private JPanel mainPanel;
 	// 卡片布局
 	private CardLayout cardLayout;
-	// 菜单各种列表：商品，客户，供应商，客户等级，订单
-	private JMenuItem goodsList,cusList,supList,creditGrade,ordersList;
+	// 菜单各种列表：商品，商品类型,客户，供应商，客户等级，订单
+	private JMenuItem goodsList,goodsType,cusList,supList,creditGrade,ordersList;
 	public Main() {
 		JMenuBar jmb = new JMenuBar();
 		setJMenuBar(jmb);
@@ -32,7 +32,9 @@ public class Main extends JFrame {
 		JMenuItem goodsAdd = new JMenuItem("添加商品");
 		goodsAdd.addActionListener(null);
 		goods.add(goodsAdd);
-		JMenuItem goodsType = new JMenuItem("商品类型");
+		goods.addSeparator();
+		goodsType = new JMenuItem("商品类型");
+		goodsType.addActionListener(new ListListener());
 		goods.add(goodsType);
 		jmb.add(goods);
 		// 客户菜单
@@ -42,7 +44,8 @@ public class Main extends JFrame {
 		customer.add(cusList);
 		JMenuItem cusAdd = new JMenuItem("添加客户");
 		customer.add(cusAdd);
-		creditGrade = new JMenuItem("客户等级");
+		customer.addSeparator();
+		creditGrade = new JMenuItem("信誉等级");
 		creditGrade.addActionListener(new ListListener());
 		customer.add(creditGrade);
 		jmb.add(customer);
@@ -63,6 +66,7 @@ public class Main extends JFrame {
 		cardLayout = new CardLayout();
 		mainPanel = new JPanel(cardLayout);
 		mainPanel.add(new GoodsForm(), "goods");
+		mainPanel.add(new GoodsTypeForm(),"goodsType");
 		mainPanel.add(new CustomerForm(), "customer");
 		mainPanel.add(new SupplierForm(), "supplier");
 		mainPanel.add(new CreditForm(), "creditGrade");
@@ -73,7 +77,7 @@ public class Main extends JFrame {
 	public static void main(String[] args) {
 		initUI();
 		Main m = new Main();
-		m.setSize(800, 500);
+		m.setSize(900, 500);
 		m.setLocationRelativeTo(null);
 		m.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		m.setVisible(true);
@@ -94,6 +98,8 @@ public class Main extends JFrame {
 				name = "creditGrade";
 			else if(ob == ordersList)
 				name = "orders";
+			else if(ob == goodsType)
+				name = "goodsType";
 			cardLayout.show(mainPanel, name);
 		}
 		

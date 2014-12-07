@@ -1,26 +1,26 @@
 package view;
 
-import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class CustomerForm extends Form {
-	
+	private String[] fields = {"编号","名称","注册名","密码","注册时间","信誉等级","地址","邮编","联系电话","邮箱地址","备注信息"};
 	public CustomerForm() {
 		super("customer");
+		setColName(fields);
+		setTitle("客户列表");
 	}
 	@Override
 	protected void create() {
-		// TODO Auto-generated method stub
+		SingleForm sf = new SingleForm(fields){
 
-	}
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+			
+		};
 
-	public static void main(String[] args) {
-		CustomerForm c  = new CustomerForm();
-		JFrame frame = new JFrame();
-		frame.add(c);
-		frame.setSize(1000, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
 	}
 
 }

@@ -3,13 +3,13 @@ package view;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class SupplierForm extends Form {
+public class GoodsTypeForm extends Form {
 	
-	private String[] fields = {"编号","名称","注册名","密码","注册时间","信誉等级","自我描述","地址","邮编","联系电话","邮箱地址","备注信息"};
-	public SupplierForm() {
-		super("supplier");
+	private String[] fields = {"编号","类型名称"};
+	public GoodsTypeForm() {
+		super("goodstype");
 		setColName(fields);
-		setTitle("供应商列表");
+		setTitle("商品类型列表");
 	}
 
 	@Override
@@ -22,7 +22,6 @@ public class SupplierForm extends Form {
 			}
 			
 		};
-		
 	}
 
 }

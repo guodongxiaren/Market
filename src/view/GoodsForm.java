@@ -1,19 +1,14 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 
 import odbc.CURD;
 import odbc.QueryTable;
@@ -21,19 +16,44 @@ import bean.Goods;
 
 @SuppressWarnings("serial")
 public class GoodsForm extends Form {
+	private String[] fields = { "商品编号", "商品名称", "供应商", "商品类型", "商标", "商品型号",
+			"描述", "价格", "库存量" };
+	private Vector<String> supId, sup, type, goodsTypeId;
 
 	public GoodsForm() {
 		super("goods");
+		setColName(fields);
+		setTitle("商品列表");
+		QueryTable qt = new QueryTable();
+		qt.setTable("supplier");
+		sup = qt.getColData("suppliername");
+		supId = qt.getColData("supplierid");
+		qt.setTable("goodsType");
+		type = qt.getColData("goodstypename");
+		goodsTypeId = qt.getColData("goodstypeid");
+		JTable table = getTable();
+		for (int i = 0; i < table.getRowCount(); i++) {
+			String ob = (String) table.getValueAt(i, 3);
+			// 因为数据库中商品表的供应商编号字段是NOT NULL的。所以此时ob币不为null
+			int index = supId.indexOf(ob);
+
+			table.setValueAt(sup.get(index).trim(), i, 3);
+			ob = (String) table.getValueAt(i, 4);
+			// 商品类型编号字段，是可以为null的，所以要判断。
+			if (ob == null)
+				continue;
+			index = goodsTypeId.indexOf(ob);
+			 table.setValueAt(type.get(index).trim(), i, 4);
+		}
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	protected void create() {
-		GoodsItem gi = new GoodsItem();
+		SingleForm sf = new GoodsSingleForm(fields);
 		update();
 	}
-	
-	public static void main(String[]args){
+
+	public static void main(String[] args) {
 		GoodsForm gf = new GoodsForm();
 		JFrame frame = new JFrame();
 		frame.add(gf);
@@ -41,70 +61,45 @@ public class GoodsForm extends Form {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
-}
-@SuppressWarnings("serial")
-class GoodsItem extends JDialog implements ActionListener {
-	private String colname[] = { "商品编号", "商品名称", "供应商", "商品类型", "商标", "商品型号",
-			"描述", "价格", "库存量" };
-	private JLabel label[] = new JLabel[9];
-	private JTextField field[] = new JTextField[9];
-	private JButton jbok;
-	JComboBox<?> cbSupplier;
-	private JComboBox<?> cbGoodsType;
-	private Vector<String> supId;
-	private Vector<String> goodsTypeId;
-	public GoodsItem() {
-		setModal(true);
-		JPanel panel = new JPanel(new GridLayout(9, 2, 5, 5));
-		//边距
-		panel.setBorder(new EmptyBorder(10, 50, 10, 10));
-		
-		QueryTable qt = new QueryTable();
-		qt.setTable("supplier");
-		Vector<String> sup = qt.getColData("suppliername");
-		supId = qt.getColData("supplierid");
-		qt.setTable("goodsType");
-		Vector<String> type = qt.getColData("goodstypename");
-		goodsTypeId = qt.getColData("goodstypeid");
-		for (int i = 0; i < 9; i++) {
-			label[i] = new JLabel(colname[i]);
-			panel.add(label[i]);
-			if (i == 2) {
-				cbSupplier = new JComboBox<>(sup);
-				panel.add(cbSupplier);
-			} else if (i == 3) {
-				cbGoodsType = new JComboBox<>(type);
-				panel.add(cbGoodsType);
-			} else {
-				field[i] = new JTextField();
-				panel.add(field[i]);
+
+	class GoodsSingleForm extends SingleForm {
+		JComponent[] comp;
+
+		public GoodsSingleForm(String[] fields) {
+			super(fields);
+		}
+
+		@Override
+		protected void initUI() {
+			comp = new JComponent[fields.length];
+			JPanel p = getRightPanel();
+			for (int i = 0; i < fields.length; i++) {
+				if (i == 2) {
+					comp[i] = new JComboBox<String>(sup);
+				} else if (i == 3) {
+					comp[i] = new JComboBox<String>(type);
+				} else {
+					comp[i] = new JTextField();
+				}
+				p.add(comp[i]);
 			}
 		}
 
-		add(panel, BorderLayout.NORTH);
-		jbok = new JButton("确定");
-		jbok.addActionListener(this);
-		JPanel pbottom = new JPanel();
-		pbottom.add(jbok);
-		add(pbottom, BorderLayout.CENTER);
-		setSize(300, 400);
-		setLocationRelativeTo(null);
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int id = Integer.parseInt(((JTextField) comp[0]).getText());
+			double price = Double.parseDouble(((JTextField) comp[7]).getText());
+			int storage = Integer.parseInt(((JTextField) comp[8]).getText());
+			int i = ((JComboBox<?>) comp[2]).getSelectedIndex();
+			int supplierid = Integer.parseInt(supId.elementAt(i));
+			i = ((JComboBox<?>) comp[3]).getSelectedIndex();
+			int goodstypeid = Integer.parseInt(goodsTypeId.elementAt(i));
+			Goods goods = new Goods(id, ((JTextField) comp[1]).getText(),
+					supplierid, goodstypeid, ((JTextField) comp[4]).getText(),
+					((JTextField) comp[5]).getText(),
+					((JTextField) comp[6]).getText(), price, storage);
+			CURD.insert(goods);
+		}
 
-		setVisible(true);
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		int id = Integer.parseInt(field[0].getText());
-		double price = Double.parseDouble(field[7].getText());
-		int storage = Integer.parseInt(field[8].getText());
-		int i = cbSupplier.getSelectedIndex();
-		int supplierid = Integer.parseInt(supId.elementAt(i));
-		i = cbGoodsType.getSelectedIndex();
-		int goodstypeid = Integer.parseInt(goodsTypeId.elementAt(i));
-		Goods goods = new Goods(id, field[1].getText(), supplierid, goodstypeid,
-				field[4].getText(), field[5].getText(), field[6].getText(),
-				price, storage);
-		CURD.insert(goods);
-	}
+	};
 }
