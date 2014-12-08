@@ -43,7 +43,7 @@ public class GoodsForm extends Form {
 			if (ob == null)
 				continue;
 			index = goodsTypeId.indexOf(ob);
-			 table.setValueAt(type.get(index).trim(), i, 4);
+			table.setValueAt(type.get(index).trim(), i, 4);
 		}
 	}
 
