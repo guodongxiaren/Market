@@ -1,19 +1,24 @@
 package bean;
 
 public class CreditGrade {
-    private int creditgradeid;
-    private String creditgradename;
-	public int getCreditgradeid() {
-		return creditgradeid;
+	private int creditGradeId;
+	private String creditGradeName;
+	
+	public CreditGrade(int creditGradeId, String creditGradeName) {
+		this.creditGradeId = creditGradeId;
+		this.creditGradeName = creditGradeName;
 	}
-	public void setCreditgradeid(int creditgradeid) {
-		this.creditgradeid = creditgradeid;
+	public int getCreditGradeId() {
+		return creditGradeId;
 	}
-	public String getCreditgradename() {
-		return creditgradename;
+	public void setCreditGradeId(int creditGradeId) {
+		this.creditGradeId = creditGradeId;
 	}
-	public void setCreditgradename(String creditgradename) {
-		this.creditgradename = creditgradename;
+	public String getCreditGradeName() {
+		return creditGradeName;
 	}
-    
+	public void setCreditGradeName(String creditGradeName) {
+		this.creditGradeName = creditGradeName;
+	}
+
 }

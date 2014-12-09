@@ -13,6 +13,23 @@ public class Customer {
 	private String email;
 	private String note;
 
+	public Customer(int customerid, String customername, String loginname,
+			String password, String logindate, int creditgradeid,
+			String address, String zipcode, String tel, String email,
+			String note) {
+		this.customerid = customerid;
+		this.customername = customername;
+		this.loginname = loginname;
+		this.password = password;
+		this.logindate = logindate;
+		this.creditgradeid = creditgradeid;
+		this.address = address;
+		this.zipcode = zipcode;
+		this.tel = tel;
+		this.email = email;
+		this.note = note;
+	}
+
 	public int getCustomerid() {
 		return customerid;
 	}

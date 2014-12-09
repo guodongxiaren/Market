@@ -2,10 +2,14 @@ package view;
 
 import java.awt.event.ActionEvent;
 
+import odbc.CURD;
+import bean.GoodsType;
+
 @SuppressWarnings("serial")
 public class GoodsTypeForm extends Form {
-	
-	private String[] fields = {"编号","类型名称"};
+
+	private String[] fields = { "编号", "类型名称" };
+
 	public GoodsTypeForm() {
 		super("goodstype");
 		setColName(fields);
@@ -14,13 +18,17 @@ public class GoodsTypeForm extends Form {
 
 	@Override
 	protected void create() {
-		SingleForm sf = new SingleForm(fields){
+		SingleForm sf = new SingleForm(fields) {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				String[] input = getInput();
+				int id = Integer.parseInt(input[0]);
+				GoodsType gt = new GoodsType(id, input[1]);
+				CURD.insert(gt);
+				GoodsTypeForm.this.update();
 			}
-			
+
 		};
 	}
 

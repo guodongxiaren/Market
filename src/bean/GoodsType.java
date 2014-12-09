@@ -1,19 +1,24 @@
 package bean;
 
 public class GoodsType {
-    private int goodstypedid;
-    private String goodstypename;
-	public int getGoodstypedid() {
-		return goodstypedid;
-	}
-	public void setGoodstypedid(int goodstypedid) {
-		this.goodstypedid = goodstypedid;
-	}
-	public String getGoodstypename() {
-		return goodstypename;
-	}
-	public void setGoodstypename(String goodstypename) {
-		this.goodstypename = goodstypename;
-	}
+    private int goodsTypeId;
+    private String goodsTypeName;
     
+	public GoodsType(int goodsTypeId, String goodsTypeName) {
+		this.goodsTypeId = goodsTypeId;
+		this.goodsTypeName = goodsTypeName;
+	}
+	public int getGoodsTypeId() {
+		return goodsTypeId;
+	}
+	public void setGoodsTypeId(int goodsTypeId) {
+		this.goodsTypeId = goodsTypeId;
+	}
+	public String getGoodsTypeName() {
+		return goodsTypeName;
+	}
+	public void setGoodsTypeName(String goodsTypeName) {
+		this.goodsTypeName = goodsTypeName;
+	}
+
 }

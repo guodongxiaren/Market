@@ -109,6 +109,7 @@ public abstract class Form extends JPanel {
 		update();
 	}
 
+	
 	protected void update() {
 		QueryTable q = new QueryTable(tablename);
 		rowData = q.getData();
@@ -120,6 +121,7 @@ public abstract class Form extends JPanel {
 		aColumn.setCellEditor(table.getDefaultEditor(Boolean.class));
 		aColumn.setCellRenderer(table.getDefaultRenderer(Boolean.class));
 	};
+
 
 	public JTable getTable() {
 		return table;
@@ -168,7 +170,7 @@ abstract class SingleForm extends JDialog implements ActionListener {
 	private int count;
 	@SuppressWarnings("unused")
 	private String[] fields;
-	private JComponent[] comp;
+	private JTextField[] textField;
 	private JButton jbok;
 	protected JPanel pUp, pDown, pLeft, pRight;
 
@@ -202,12 +204,23 @@ abstract class SingleForm extends JDialog implements ActionListener {
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
-
+	protected String[] getInput(){
+		String[] input = new String[count];
+		for(int i=0;i<count;i++){
+			input[i] = textField[i].getText();
+		}
+		return input;
+	}
+	protected void clearInput(){
+		for(int i=0;i<count;i++){
+			textField[i].setText("");
+		}
+	}
 	protected void initUI() {
-		comp = new JTextField[count];
+		textField = new JTextField[count];
 		for (int i = 0; i < count; i++) {
-			comp[i] = new JTextField(20);
-			pRight.add(comp[i]);
+			textField[i] = new JTextField(20);
+			pRight.add(textField[i]);
 		}
 	}
 

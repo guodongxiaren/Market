@@ -36,13 +36,14 @@ public class OrdersForm extends Form {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	protected void create() {
 		SingleForm sf = new SingleForm(fields) {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				
 			}
 
 		};

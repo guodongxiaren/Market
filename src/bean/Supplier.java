@@ -14,6 +14,24 @@ public class Supplier {
 	private String email;
 	private String note;
 
+	public Supplier(int supplierid, String suppliername, String loginname,
+			String password, String logindate, int creditgradeid,
+			String description, String address, String zipcode, String tel,
+			String email, String note) {
+		this.supplierid = supplierid;
+		this.suppliername = suppliername;
+		this.loginname = loginname;
+		this.password = password;
+		this.logindate = logindate;
+		this.creditgradeid = creditgradeid;
+		this.description = description;
+		this.address = address;
+		this.zipcode = zipcode;
+		this.tel = tel;
+		this.email = email;
+		this.note = note;
+	}
+
 	public int getSupplierid() {
 		return supplierid;
 	}
