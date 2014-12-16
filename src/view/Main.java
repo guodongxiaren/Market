@@ -29,9 +29,7 @@ public class Main extends JFrame {
 		goodsList = new JMenuItem("商品列表");
 		goodsList.addActionListener(new ListListener());
 		goods.add(goodsList);
-		JMenuItem goodsAdd = new JMenuItem("添加商品");
-		goodsAdd.addActionListener(null);
-		goods.add(goodsAdd);
+
 		goods.addSeparator();
 		goodsType = new JMenuItem("商品类型");
 		goodsType.addActionListener(new ListListener());
@@ -42,8 +40,7 @@ public class Main extends JFrame {
 		cusList = new JMenuItem("客户列表");
 		cusList.addActionListener(new ListListener());
 		customer.add(cusList);
-		JMenuItem cusAdd = new JMenuItem("添加客户");
-		customer.add(cusAdd);
+
 		customer.addSeparator();
 		creditGrade = new JMenuItem("信誉等级");
 		creditGrade.addActionListener(new ListListener());
@@ -65,6 +62,7 @@ public class Main extends JFrame {
 		// 主面板
 		cardLayout = new CardLayout();
 		mainPanel = new JPanel(cardLayout);
+		mainPanel.add(new SummaryPanel(),"summary");
 		mainPanel.add(new GoodsForm(), "goods");
 		mainPanel.add(new GoodsTypeForm(),"goodsType");
 		mainPanel.add(new CustomerForm(), "customer");

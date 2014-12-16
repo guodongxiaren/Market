@@ -74,7 +74,7 @@ public class QueryTable {
 	public Vector<String> getColData(String colname) {
 		Vector<String> colData = new Vector<>();
 		try {
-			rs = stat.executeQuery("select "+colname+" from " + table);
+			rs = stat.executeQuery("select " + colname + " from " + table);
 			while (rs.next()) {
 				String name = rs.getString(1);
 				colData.addElement(name);
@@ -83,5 +83,25 @@ public class QueryTable {
 			e.printStackTrace();
 		}
 		return colData;
+	}
+
+	public Vector<Vector<String>> getSummary() {
+		Vector<Vector<String>> data = new Vector<>();
+		// 查询商品，订单，客户和供应商的数量
+		String sql = "select count(*) from goods union all "
+				+ "select count(*) from customer union all "
+				+ "select count (*) from orders union all "
+				+ "select count(*) from supplier";
+		try {
+			rs = stat.executeQuery(sql);
+			Vector<String> coldata = new Vector<>();
+			while (rs.next()) {
+				coldata.addElement(rs.getString(1));
+			}
+			data.addElement(coldata);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
 }
