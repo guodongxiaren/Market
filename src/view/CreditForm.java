@@ -2,8 +2,8 @@ package view;
 
 import java.awt.event.ActionEvent;
 
-import odbc.CURD;
-import bean.CreditGrade;
+import db.Update;
+import entity.CreditGrade;
 
 @SuppressWarnings("serial")
 public class CreditForm extends Form {
@@ -25,7 +25,7 @@ public class CreditForm extends Form {
 				String[] input = getInput();
 				int id = Integer.parseInt(input[0]);
 				CreditGrade cg = new CreditGrade(id, input[1]);
-				CURD.insert(cg);
+				Update.insert(cg);
 				CreditForm.this.update();
 			}
 

@@ -5,14 +5,13 @@ import java.util.Vector;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import odbc.CURD;
-import odbc.QueryTable;
-import bean.Goods;
+import db.Update;
+import db.QueryTable;
+import entity.Goods;
 
 @SuppressWarnings("serial")
 public class GoodsForm extends Form {
@@ -34,7 +33,7 @@ public class GoodsForm extends Form {
 		JTable table = getTable();
 		for (int i = 0; i < table.getRowCount(); i++) {
 			String ob = (String) table.getValueAt(i, 3);
-			// 因为数据库中商品表的供应商编号字段是NOT NULL的。所以此时ob币不为null
+			// 因为数据库中商品表的供应商编号字段是NOT NULL的。所以此时ob必不为null
 			int index = supId.indexOf(ob);
 
 			table.setValueAt(sup.get(index).trim(), i, 3);
@@ -51,15 +50,6 @@ public class GoodsForm extends Form {
 	protected void create() {
 		SingleForm sf = new GoodsSingleForm(fields);
 		update();
-	}
-
-	public static void main(String[] args) {
-		GoodsForm gf = new GoodsForm();
-		JFrame frame = new JFrame();
-		frame.add(gf);
-		frame.setSize(1000, 500);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
 	}
 
 	class GoodsSingleForm extends SingleForm {
@@ -98,7 +88,7 @@ public class GoodsForm extends Form {
 					supplierid, goodstypeid, ((JTextField) comp[4]).getText(),
 					((JTextField) comp[5]).getText(),
 					((JTextField) comp[6]).getText(), price, storage);
-			CURD.insert(goods);
+			Update.insert(goods);
 		}
 
 	};

@@ -1,4 +1,4 @@
-package bean;
+package entity;
 
 public class GoodsType {
     private int goodsTypeId;

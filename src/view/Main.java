@@ -20,7 +20,9 @@ public class Main extends JFrame {
 	// 卡片布局
 	private CardLayout cardLayout;
 	// 菜单各种列表：商品，商品类型,客户，供应商，客户等级，订单
-	private JMenuItem goodsList,goodsType,cusList,supList,creditGrade,ordersList;
+	private JMenuItem goodsList, goodsType, cusList, supList, creditGrade,
+			ordersList;
+
 	public Main() {
 		JMenuBar jmb = new JMenuBar();
 		setJMenuBar(jmb);
@@ -62,13 +64,13 @@ public class Main extends JFrame {
 		// 主面板
 		cardLayout = new CardLayout();
 		mainPanel = new JPanel(cardLayout);
-		mainPanel.add(new SummaryPanel(),"summary");
+		mainPanel.add(new SummaryPanel(), "summary");
 		mainPanel.add(new GoodsForm(), "goods");
-		mainPanel.add(new GoodsTypeForm(),"goodsType");
+		mainPanel.add(new GoodsTypeForm(), "goodsType");
 		mainPanel.add(new CustomerForm(), "customer");
 		mainPanel.add(new SupplierForm(), "supplier");
 		mainPanel.add(new CreditForm(), "creditGrade");
-		mainPanel.add(new OrdersForm(),"orders");
+		mainPanel.add(new OrdersForm(), "orders");
 		add(mainPanel);
 	}
 
@@ -80,31 +82,35 @@ public class Main extends JFrame {
 		m.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		m.setVisible(true);
 	}
-	class ListListener implements ActionListener{
+
+	class ListListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//获取触发事件的源控件
+			// 获取触发事件的源控件
 			Object ob = e.getSource();
-			//默认的调用的卡片布局为goods表
+			// 默认的调用的卡片布局为goods表
 			String name = "goods";
-			if(ob == cusList)
+			if (ob == cusList)
 				name = "customer";
-			else if(ob == supList)
+			else if (ob == supList)
 				name = "supplier";
-			else if(ob == creditGrade)
+			else if (ob == creditGrade)
 				name = "creditGrade";
-			else if(ob == ordersList)
+			else if (ob == ordersList)
 				name = "orders";
-			else if(ob == goodsType)
+			else if (ob == goodsType)
 				name = "goodsType";
 			cardLayout.show(mainPanel, name);
 		}
-		
+
 	}
+
+	/**
+	 * 对将UI改成Windows风格，并修改一些控件的字体风格
+	 */
 	private static void initUI() {
 		try {
-//			UIManager.setLookAndFeel(new javax.swing.plaf.nimbus.NimbusLookAndFeel());
 			UIManager
 					.setLookAndFeel(new com.sun.java.swing.plaf.windows.WindowsLookAndFeel());
 		} catch (UnsupportedLookAndFeelException e) {

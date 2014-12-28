@@ -1,8 +1,9 @@
 package view;
 
 import java.awt.event.ActionEvent;
-import odbc.CURD;
-import bean.Supplier;
+
+import db.Update;
+import entity.Supplier;
 
 @SuppressWarnings("serial")
 public class SupplierForm extends Form {
@@ -27,7 +28,7 @@ public class SupplierForm extends Form {
 				Supplier sup = new Supplier(id, input[1], input[2], input[3],
 						input[4], creditGrade, input[6], input[7], input[8],
 						input[9], input[10],input[11]);
-				CURD.insert(sup);
+				Update.insert(sup);
 				SupplierForm.this.update();
 				clearInput();
 			}

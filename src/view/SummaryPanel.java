@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import odbc.QueryTable;
+import db.QueryTable;
 
 @SuppressWarnings("serial")
 public class SummaryPanel extends JPanel {

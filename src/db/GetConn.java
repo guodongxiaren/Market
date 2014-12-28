@@ -1,4 +1,4 @@
-package odbc;
+package db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,9 +26,5 @@ public class GetConn {
 			System.out.println("OK");
 		}
 		return conn;
-	}
-
-	public static void main(String[] args) {
-		GetConn.getConnection();
 	}
 }

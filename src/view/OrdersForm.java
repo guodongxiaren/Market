@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import javax.swing.JTable;
 
-import odbc.QueryTable;
+import db.QueryTable;
 
 @SuppressWarnings("serial")
 public class OrdersForm extends Form {

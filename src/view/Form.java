@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,8 +20,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
-import odbc.CURD;
-import odbc.QueryTable;
+import db.Update;
+import db.QueryTable;
 
 @SuppressWarnings("serial")
 public abstract class Form extends JPanel {
@@ -103,7 +102,7 @@ public abstract class Form extends JPanel {
 			boolean b = (boolean) tm.getValueAt(i, 0);
 			if (b == true) {
 				int id = Integer.parseInt((String) tm.getValueAt(i, 1));
-				CURD.delete(id, tablename);
+				Update.delete(id, tablename);
 			}
 		}
 		update();

@@ -1,16 +1,16 @@
-package odbc;
+package db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import bean.CreditGrade;
-import bean.Customer;
-import bean.Goods;
-import bean.GoodsType;
-import bean.Supplier;
+import entity.CreditGrade;
+import entity.Customer;
+import entity.Goods;
+import entity.GoodsType;
+import entity.Supplier;
 
-public class CURD {
+public class Update {
 	static Connection conn = GetConn.getConnection();
 
 	/*

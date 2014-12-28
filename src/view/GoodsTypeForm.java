@@ -2,8 +2,8 @@ package view;
 
 import java.awt.event.ActionEvent;
 
-import odbc.CURD;
-import bean.GoodsType;
+import db.Update;
+import entity.GoodsType;
 
 @SuppressWarnings("serial")
 public class GoodsTypeForm extends Form {
@@ -25,7 +25,7 @@ public class GoodsTypeForm extends Form {
 				String[] input = getInput();
 				int id = Integer.parseInt(input[0]);
 				GoodsType gt = new GoodsType(id, input[1]);
-				CURD.insert(gt);
+				Update.insert(gt);
 				GoodsTypeForm.this.update();
 			}
 

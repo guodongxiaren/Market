@@ -1,4 +1,4 @@
-package bean;
+package entity;
 
 public class Order {
     private int orderid;
