@@ -15,30 +15,30 @@ import entity.Goods;
 
 @SuppressWarnings("serial")
 public class GoodsForm extends Form {
-	private String[] fields = { "ÉÌÆ·±àºÅ", "ÉÌÆ·Ãû³Æ", "¹©Ó¦ÉÌ", "ÉÌÆ·ÀàÐÍ", "ÉÌ±ê", "ÉÌÆ·ÐÍºÅ",
-			"ÃèÊö", "¼Û¸ñ", "¿â´æÁ¿" };
+	private String[] fields = { "ï¿½ï¿½Æ·ï¿½ï¿½ï¿½", "ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½", "ï¿½ï¿½Ó¦ï¿½ï¿½", "ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½", "ï¿½Ì±ï¿½", "ï¿½ï¿½Æ·ï¿½Íºï¿½",
+			"ï¿½ï¿½ï¿½ï¿½", "ï¿½Û¸ï¿½", "ï¿½ï¿½ï¿½ï¿½ï¿½" };
 	private Vector<String> supId, sup, type, goodsTypeId;
 
 	public GoodsForm() {
 		super("goods");
 		setColName(fields);
-		setTitle("ÉÌÆ·ÁÐ±í");
+		setTitle("ï¿½ï¿½Æ·ï¿½Ð±ï¿½");
 		QueryTable qt = new QueryTable();
 		qt.setTable("supplier");
 		sup = qt.getColData("suppliername");
 		supId = qt.getColData("supplierid");
-		qt.setTable("goodsType");
+		qt.setTable("goodstype");
 		type = qt.getColData("goodstypename");
 		goodsTypeId = qt.getColData("goodstypeid");
 		JTable table = getTable();
 		for (int i = 0; i < table.getRowCount(); i++) {
 			String ob = (String) table.getValueAt(i, 3);
-			// ÒòÎªÊý¾Ý¿âÖÐÉÌÆ·±íµÄ¹©Ó¦ÉÌ±àºÅ×Ö¶ÎÊÇNOT NULLµÄ¡£ËùÒÔ´ËÊ±ob±Ø²»Îªnull
+			// ï¿½ï¿½Îªï¿½ï¿½ï¿½Ý¿ï¿½ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½Ä¹ï¿½Ó¦ï¿½Ì±ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½NOT NULLï¿½Ä¡ï¿½ï¿½ï¿½ï¿½Ô´ï¿½Ê±obï¿½Ø²ï¿½Îªnull
 			int index = supId.indexOf(ob);
 
 			table.setValueAt(sup.get(index).trim(), i, 3);
 			ob = (String) table.getValueAt(i, 4);
-			// ÉÌÆ·ÀàÐÍ±àºÅ×Ö¶Î£¬ÊÇ¿ÉÒÔÎªnullµÄ£¬ËùÒÔÒªÅÐ¶Ï¡£
+			// ï¿½ï¿½Æ·ï¿½ï¿½ï¿½Í±ï¿½ï¿½ï¿½Ö¶Î£ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½Îªnullï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ð¶Ï¡ï¿½
 			if (ob == null)
 				continue;
 			index = goodsTypeId.indexOf(ob);

@@ -12,56 +12,57 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
-	// Ö÷Ãæ°å
+	// ä¸»é¢æ¿
 	private JPanel mainPanel;
-	// ¿¨Æ¬²¼¾Ö
+	// å¡ç‰‡å¸ƒå±€
 	private CardLayout cardLayout;
-	// ²Ëµ¥¸÷ÖÖÁĞ±í£ºÉÌÆ·£¬ÉÌÆ·ÀàĞÍ,¿Í»§£¬¹©Ó¦ÉÌ£¬¿Í»§µÈ¼¶£¬¶©µ¥
+	// èœå•é¡¹
 	private JMenuItem goodsList, goodsType, cusList, supList, creditGrade,
 			ordersList;
 
 	public Main() {
 		JMenuBar jmb = new JMenuBar();
 		setJMenuBar(jmb);
-		// ÉÌÆ·²Ëµ¥
-		JMenu goods = new JMenu("ÉÌÆ·");
-		goodsList = new JMenuItem("ÉÌÆ·ÁĞ±í");
+		// å•†å“é¡¹
+		JMenu goods = new JMenu("ï¿½ï¿½Æ·");
+		goodsList = new JMenuItem("ï¿½ï¿½Æ·ï¿½Ğ±ï¿½");
 		goodsList.addActionListener(new ListListener());
 		goods.add(goodsList);
 
 		goods.addSeparator();
-		goodsType = new JMenuItem("ÉÌÆ·ÀàĞÍ");
+		goodsType = new JMenuItem("ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½");
 		goodsType.addActionListener(new ListListener());
 		goods.add(goodsType);
 		jmb.add(goods);
-		// ¿Í»§²Ëµ¥
-		JMenu customer = new JMenu("¿Í»§");
-		cusList = new JMenuItem("¿Í»§ÁĞ±í");
+		// å®¢æˆ·é¡¹
+		JMenu customer = new JMenu("ï¿½Í»ï¿½");
+		cusList = new JMenuItem("ï¿½Í»ï¿½ï¿½Ğ±ï¿½");
 		cusList.addActionListener(new ListListener());
 		customer.add(cusList);
 
 		customer.addSeparator();
-		creditGrade = new JMenuItem("ĞÅÓşµÈ¼¶");
+		creditGrade = new JMenuItem("ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½");
 		creditGrade.addActionListener(new ListListener());
 		customer.add(creditGrade);
 		jmb.add(customer);
 
-		// ¹©Ó¦ÉÌ²Ëµ¥
-		JMenu supplier = new JMenu("¹©Ó¦ÉÌ");
-		supList = new JMenuItem("¹©Ó¦ÉÌÁĞ±í");
+		// ä¾›åº”å•†é¡¹
+		JMenu supplier = new JMenu("ï¿½ï¿½Ó¦ï¿½ï¿½");
+		supList = new JMenuItem("ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Ğ±ï¿½");
 		supList.addActionListener(new ListListener());
 		supplier.add(supList);
 		jmb.add(supplier);
-		// ¶©µ¥²Ëµ¥
-		JMenu orders = new JMenu("¶©µ¥");
-		ordersList = new JMenuItem("¶©µ¥ÁĞ±í");
+		// è®¢å•é¡¹
+		JMenu orders = new JMenu("ï¿½ï¿½ï¿½ï¿½");
+		ordersList = new JMenuItem("ï¿½ï¿½ï¿½ï¿½ï¿½Ğ±ï¿½");
 		ordersList.addActionListener(new ListListener());
 		orders.add(ordersList);
 		jmb.add(orders);
-		// Ö÷Ãæ°å
+		// æ„å»ºå¡ç‰‡å¸ƒå±€
 		cardLayout = new CardLayout();
 		mainPanel = new JPanel(cardLayout);
 		mainPanel.add(new SummaryPanel(), "summary");
@@ -87,9 +88,9 @@ public class Main extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// »ñÈ¡´¥·¢ÊÂ¼şµÄÔ´¿Ø¼ş
+			// è·å¾—è§¦å‘äº‹ä»¶çš„æºç»„ä»¶
 			Object ob = e.getSource();
-			// Ä¬ÈÏµÄµ÷ÓÃµÄ¿¨Æ¬²¼¾ÖÎªgoods±í
+			// ç¼ºçœä¸ºgoodsèœå•é¡¹
 			String name = "goods";
 			if (ob == cusList)
 				name = "customer";
@@ -107,16 +108,16 @@ public class Main extends JFrame {
 	}
 
 	/**
-	 * ¶Ô½«UI¸Ä³ÉWindows·ç¸ñ£¬²¢ĞŞ¸ÄÒ»Ğ©¿Ø¼şµÄ×ÖÌå·ç¸ñ
+	 * è®¾ç½®UIé£æ ¼
 	 */
 	private static void initUI() {
 		try {
 			UIManager
-					.setLookAndFeel(new com.sun.java.swing.plaf.windows.WindowsLookAndFeel());
+					.setLookAndFeel(new NimbusLookAndFeel());
 		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-		UIManager.put("Menu.font", new Font("ËÎÌå", Font.PLAIN, 15));
-		UIManager.put("MenuItem.font", new Font("ËÎÌå", Font.PLAIN, 12));
+		UIManager.put("Menu.font", new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 15));
+		UIManager.put("MenuItem.font", new Font("ï¿½ï¿½ï¿½ï¿½", Font.PLAIN, 12));
 	}
 }

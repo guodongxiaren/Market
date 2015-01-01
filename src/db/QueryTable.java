@@ -87,11 +87,12 @@ public class QueryTable {
 
 	public Vector<Vector<String>> getSummary() {
 		Vector<Vector<String>> data = new Vector<>();
-		// ²éÑ¯ÉÌÆ·£¬¶©µ¥£¬¿Í»§ºÍ¹©Ó¦ÉÌµÄÊýÁ¿
-		String sql = "select count(*) from goods union all "
-				+ "select count(*) from customer union all "
-				+ "select count (*) from orders union all "
-				+ "select count(*) from supplier";
+		// ï¿½ï¿½Ñ¯ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Í¹ï¿½Ó¦ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½
+//		String sql = "(select count(*) from goods) union all "
+//				+ "(select count(*) from customer) union all "
+//				+ "(select count (*) from orders) union all "
+//				+ "(select count(*) from supplier)";
+		String sql = "select count(*) from goods";
 		try {
 			rs = stat.executeQuery(sql);
 			Vector<String> coldata = new Vector<>();
