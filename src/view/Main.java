@@ -14,6 +14,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 
+import res.Menu;
+
 @SuppressWarnings("serial")
 public class Main extends JFrame {
 	// 主面板
@@ -28,37 +30,37 @@ public class Main extends JFrame {
 		JMenuBar jmb = new JMenuBar();
 		setJMenuBar(jmb);
 		// 商品项
-		JMenu goods = new JMenu("��Ʒ");
-		goodsList = new JMenuItem("��Ʒ�б�");
+		JMenu goods = new JMenu(Menu.goodsMenu);
+		goodsList = new JMenuItem(Menu.goods.list);
 		goodsList.addActionListener(new ListListener());
 		goods.add(goodsList);
 
 		goods.addSeparator();
-		goodsType = new JMenuItem("��Ʒ����");
+		goodsType = new JMenuItem(Menu.goods.add);
 		goodsType.addActionListener(new ListListener());
 		goods.add(goodsType);
 		jmb.add(goods);
 		// 客户项
-		JMenu customer = new JMenu("�ͻ�");
-		cusList = new JMenuItem("�ͻ��б�");
+		JMenu customer = new JMenu(Menu.customerMenu);
+		cusList = new JMenuItem(Menu.customer.list);
 		cusList.addActionListener(new ListListener());
 		customer.add(cusList);
 
 		customer.addSeparator();
-		creditGrade = new JMenuItem("�����ȼ�");
+		creditGrade = new JMenuItem(Menu.customer.credit);
 		creditGrade.addActionListener(new ListListener());
 		customer.add(creditGrade);
 		jmb.add(customer);
 
 		// 供应商项
-		JMenu supplier = new JMenu("��Ӧ��");
-		supList = new JMenuItem("��Ӧ���б�");
+		JMenu supplier = new JMenu(Menu.supplierMenu);
+		supList = new JMenuItem(Menu.supplier.list);
 		supList.addActionListener(new ListListener());
 		supplier.add(supList);
 		jmb.add(supplier);
 		// 订单项
-		JMenu orders = new JMenu("����");
-		ordersList = new JMenuItem("�����б�");
+		JMenu orders = new JMenu(Menu.orderMenu);
+		ordersList = new JMenuItem(Menu.order.list);
 		ordersList.addActionListener(new ListListener());
 		orders.add(ordersList);
 		jmb.add(orders);

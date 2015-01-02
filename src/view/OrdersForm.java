@@ -5,17 +5,17 @@ import java.util.Vector;
 
 import javax.swing.JTable;
 
+import res.Table;
 import db.QueryTable;
 
 @SuppressWarnings("serial")
 public class OrdersForm extends Form {
-	private String[] fields = { "订单编号", "客户姓名", "商品名称", "订单数量", "订单金额", "订货日期" };
 	private Vector<String> customerId, customerName, goodsId, goodsName;
 
 	public OrdersForm() {
 		super("orders");
-		setColName(fields);
-		setTitle("订单列表");
+		setColName(Table.order.fields);
+		setTitle(Table.title.order);
 
 		QueryTable qt = new QueryTable();
 		qt.setTable("customer");
@@ -39,11 +39,11 @@ public class OrdersForm extends Form {
 	@SuppressWarnings("unused")
 	@Override
 	protected void create() {
-		SingleForm sf = new SingleForm(fields) {
+		SingleForm sf = new SingleForm(Table.order.fields) {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 
 		};

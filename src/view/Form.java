@@ -29,14 +29,13 @@ public abstract class Form extends JPanel {
 	private JButton jbAdd, jbDel, jbUpd;
 	private JTable table;
 	private TableModel model;
-	// ´´½¨Ò»¸öÔÚÉÏ·½µÄÃæ°å
+	// æ”¾ç½®æŒ‰é’®çš„é¢æ¿
 	private JPanel phead = new JPanel(new FlowLayout(FlowLayout.LEFT));
-	// ÓÃÓÚ·ÅÖÃ±í¸ñµÄÃæ°å
+	// æ»šåŠ¨é¢æ¿
 	private JScrollPane sp;
 	protected Vector<Vector<Object>> rowData;
 	private Vector<String> colname;
 	private String tablename;
-	private String title;
 	private JLabel titleLabel;
 
 	public Form(String tablename) {
@@ -55,10 +54,10 @@ public abstract class Form extends JPanel {
 		aColumn.setCellRenderer(table.getDefaultRenderer(Boolean.class));
 
 		sp = new JScrollPane(table);
-		// Èı¸ö°´Å¥
-		jbAdd = new JButton("Ìí¼Ó");
-		jbDel = new JButton("É¾³ı");
-		jbUpd = new JButton("¸üĞÂ");
+		// æŒ‰é’®
+		jbAdd = new JButton("å¢åŠ ");
+		jbDel = new JButton("åˆ é™¤");
+		jbUpd = new JButton("æ›´æ–°");
 
 		jbAdd.addActionListener(createListener);
 		jbDel.addActionListener(deleteListener);
@@ -70,9 +69,9 @@ public abstract class Form extends JPanel {
 
 		JPanel ptitle = new JPanel(new BorderLayout());
 		titleLabel = new JLabel();
-		titleLabel.setFont(new Font("Î¢ÈíÑÅºÚ",Font.BOLD,15));
+		titleLabel.setFont(new Font("Î¢ï¿½ï¿½ï¿½Åºï¿½",Font.BOLD,15));
 		JPanel p = new JPanel();
-		//°Ñ±êÇ©·ÅÖÃµ½Ò»¸öÁ÷Ê½²¼¾Ö£¨È±Ê¡£©µÄJPanelÖ®ÖĞ£¬»á¾ÓÖĞÏÔÊ¾
+
 		p.add(titleLabel);
 		ptitle.add(p, BorderLayout.NORTH);
 		ptitle.add(phead, BorderLayout.CENTER);
@@ -81,7 +80,6 @@ public abstract class Form extends JPanel {
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
 		titleLabel.setText(title);
 	}
 
@@ -89,7 +87,7 @@ public abstract class Form extends JPanel {
 
 	protected void setColName(String[] fields) {
 		colname.clear();
-		colname.addElement("Ñ¡Ôñ");
+		colname.addElement("é€‰ä¸­");
 		for (int i = 0; i < fields.length; i++) {
 			colname.addElement(fields[i]);
 		}
@@ -163,7 +161,6 @@ public abstract class Form extends JPanel {
 	};
 }
 
-// ²åÈëÊı¾İµÄÊ±ºòµÄÃæ°å
 @SuppressWarnings("serial")
 abstract class SingleForm extends JDialog implements ActionListener {
 	private int count;
@@ -192,7 +189,7 @@ abstract class SingleForm extends JDialog implements ActionListener {
 			pLeft.add(label);
 		}
 
-		jbok = new JButton("È·¶¨");
+		jbok = new JButton("ç¡®å®š");
 		jbok.addActionListener(this);
 		pDown.add(jbok);
 		add(pUp, BorderLayout.CENTER);

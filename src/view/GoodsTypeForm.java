@@ -2,23 +2,22 @@ package view;
 
 import java.awt.event.ActionEvent;
 
+import res.Table;
 import db.Update;
 import entity.GoodsType;
 
 @SuppressWarnings("serial")
 public class GoodsTypeForm extends Form {
 
-	private String[] fields = { "编号", "类型名称" };
-
 	public GoodsTypeForm() {
 		super("goodstype");
-		setColName(fields);
-		setTitle("商品类型列表");
+		setColName(Table.goodsType.fields);
+		setTitle(Table.title.goodsType);
 	}
 
 	@Override
 	protected void create() {
-		SingleForm sf = new SingleForm(fields) {
+		SingleForm sf = new SingleForm(Table.goodsType.fields) {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {

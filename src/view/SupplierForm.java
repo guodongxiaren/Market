@@ -2,23 +2,23 @@ package view;
 
 import java.awt.event.ActionEvent;
 
+import res.Table;
 import db.Update;
 import entity.Supplier;
 
 @SuppressWarnings("serial")
 public class SupplierForm extends Form {
 	
-	private String[] fields = {"编号","名称","注册名","密码","注册时间","信誉等级","自我描述","地址","邮编","联系电话","邮箱地址","备注信息"};
 	public SupplierForm() {
 		super("supplier");
-		setColName(fields);
-		setTitle("供应商列表");
+		setColName(Table.supplier.fields);
+		setTitle(Table.title.supplier);
 	}
 
 	@SuppressWarnings("unused")
 	@Override
 	protected void create() {
-		SingleForm sf = new SingleForm(fields){
+		SingleForm sf = new SingleForm(Table.supplier.fields){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {

@@ -9,19 +9,18 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import res.Table;
 import db.Update;
 import db.QueryTable;
 import entity.Goods;
 
 @SuppressWarnings("serial")
 public class GoodsForm extends Form {
-	private String[] fields = { "��Ʒ���", "��Ʒ����", "��Ӧ��", "��Ʒ����", "�̱�", "��Ʒ�ͺ�",
-			"����", "�۸�", "�����" };
 	private Vector<String> supId, sup, type, goodsTypeId;
 
 	public GoodsForm() {
 		super("goods");
-		setColName(fields);
+		setColName(Table.goods.fields);
 		setTitle("��Ʒ�б�");
 		QueryTable qt = new QueryTable();
 		qt.setTable("supplier");
@@ -48,7 +47,7 @@ public class GoodsForm extends Form {
 
 	@Override
 	protected void create() {
-		SingleForm sf = new GoodsSingleForm(fields);
+		SingleForm sf = new GoodsSingleForm(Table.goods.fields);
 		update();
 	}
 
@@ -61,9 +60,9 @@ public class GoodsForm extends Form {
 
 		@Override
 		protected void initUI() {
-			comp = new JComponent[fields.length];
+			comp = new JComponent[Table.goods.fields.length];
 			JPanel p = getRightPanel();
-			for (int i = 0; i < fields.length; i++) {
+			for (int i = 0; i < Table.goods.fields.length; i++) {
 				if (i == 2) {
 					comp[i] = new JComboBox<String>(sup);
 				} else if (i == 3) {
